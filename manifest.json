@@ -1,0 +1,29 @@
+{
+  "manifest_version": 1,
+  "version": "1.0.0",
+  "author": "Tibu",
+  "default_locale": "en",
+  "host_permissions": [
+    "tests.tibudget.com"
+  ],
+  "inputs": [
+    {
+      "name": "login",
+      "type": "STRING",
+      "order": 1
+    },
+    {
+      "name": "password",
+      "type": "STRING",
+      "password": true,
+      "order": 2
+    },
+    {
+      "name": "withOtp",
+      "type": "BOOLEAN",
+      "required": false,
+      "defaultValue": false,
+      "order": 3
+    }
+  ]
+}

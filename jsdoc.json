@@ -1,0 +1,11 @@
+{
+  "source": {
+    "include": [
+      "main.js",
+      "README.md"
+    ]
+  },
+  "opts": {
+    "destination": "docs/api"
+  }
+}

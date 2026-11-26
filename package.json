@@ -1,0 +1,31 @@
+{
+  "name": "@tibudget/collector-starter-js",
+  "version": "1.0.0",
+  "private": true,
+  "description": "JavaScript skeleton of the Tibu demo website collector.",
+  "license": "CC0-1.0",
+  "author": "Tibu",
+  "type": "module",
+  "main": "./main.js",
+  "exports": "./main.js",
+  "files": [
+    "main.js",
+    "manifest.json",
+    "icon.png",
+    "_locales/"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "check": "node --check main.js && node --check scripts/build.mjs",
+    "build": "npm run check && node scripts/build.mjs",
+    "test": "node --experimental-vm-modules --test test/*.test.js",
+    "docs": "jsdoc -c jsdoc.json"
+  },
+  "devDependencies": {
+    "tibu": "file:../tibudget-collector-sdk",
+    "linkedom": "0.18.12",
+    "jsdoc": "4.0.4"
+  }
+}
