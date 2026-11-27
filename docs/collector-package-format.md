@@ -1,12 +1,12 @@
-# JavaScript collector manifest specification
+# JavaScript collector package format
 
-## Status and scope
+## Scope
 
-This document defines version 1 of the JavaScript collector package manifest. It is the contract to implement for JavaScript collectors, not a description of an available JavaScript runtime or installer.
+This document specifies the contents of a JavaScript collector package: the ZIP layout, required files, their formats, manifest properties, configuration inputs, translations and logo resolution. The manifest schema described here is version 1.
 
-The Android application already has a shared `CollectorDefinition` / `CollectorInput` model and a Java adapter that reads `@Input` annotations. The JavaScript definition provider is currently a placeholder. Manifest parsing, ZIP installation and JavaScript execution are not implemented yet.
+The manifest describes configuration fields and presentation resources without executing collector code. Runtime APIs and the collector lifecycle are documented separately in [JavaScript collector SDK](javascript-collector-sdk.md). Publication signatures and account/transaction DTO schemas are outside the scope of this document.
 
-The manifest describes configuration fields and presentation resources without executing collector code. It does not define the JavaScript execution lifecycle, the HTTP/OTP/PDF SDK, publication signatures or the account/transaction DTO schemas.
+Requirements below describe the package contract; they do not establish which features a particular host version implements.
 
 The terms **MUST**, **MUST NOT**, **SHOULD** and **MAY** indicate requirements, recommendations and optional behavior for the future implementation.
 
@@ -41,7 +41,11 @@ All JSON and JavaScript files MUST use UTF-8. JSON MUST NOT contain comments, du
 
 The technology is inferred from this package format and its `main.js` entry point. There is no `technology`, `entryPoint`, `resources`, `uuid` or configurable logo/message path in the manifest. The archive filename is descriptive, not the collector's identity; the UUID remains part of the catalog and installation metadata.
 
-## Manifest structure
+## Entry module (`main.js`)
+
+`main.js` is the fixed JavaScript entry module at the archive root. It uses standard ECMAScript module syntax. Collector code uses the Tibu host SDK for requests, downloads, authentication and OTP interactions; it MUST NOT depend on Node.js APIs. See the [SDK documentation](javascript-collector-sdk.md) for runtime exports and lifecycle details.
+
+## Manifest structure (`manifest.json`)
 
 | Property | Type | Required | Meaning |
 | --- | --- | --- | --- |
@@ -183,7 +187,7 @@ This is the target behavior for the JavaScript reader, not a claim that the exis
 
 The installer resolves the fixed `logo.png` file into a host-readable image reference used by `CollectorDefinition.logoUrl`. The UI continues to consume the same logo reference abstraction as Java collectors. There is no logo path in the manifest and no localized logo lookup.
 
-## Complete example
+## Complete manifest and translation examples
 
 ```json
 {

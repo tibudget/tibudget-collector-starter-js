@@ -42,7 +42,7 @@ _locales/
 - `manifest.json`: collector version, author, default locale, host permissions and form declarations.
 - `logo.png`: original Java starter logo.
 - `_locales/en/messages.json`: all original Java message keys and values, converted to a flat JSON object.
-- `docs/manifest.md`: package and input specification, copied from the Android project's specification at creation time.
+- [`docs/collector-package-format.md`](docs/collector-package-format.md): ZIP layout, required files and formats, manifest properties, configuration inputs, translations and logo.
 - `scripts/build.mjs`: development-only ZIP packaging, never included in the collector archive.
 
 Read [AGENTS.md](AGENTS.md) before changing the project. The local specification is a snapshot and should be kept aligned with the Android project when the contract changes.

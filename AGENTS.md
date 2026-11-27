@@ -3,7 +3,7 @@
 This repository is the JavaScript skeleton of the Tibu Java collector starter.
 
 - Keep the project in JavaScript using standard ECMAScript modules and npm.
-- Follow the package and input format in [Manifest specification](docs/manifest.md).
+- Follow the package and input format in [Collector package format](docs/collector-package-format.md).
 - Keep the package entry point at `main.js`, the logo at `logo.png`, and translations at `_locales/<locale>/messages.json`.
 - Preserve the Java starter's configuration keys and message keys during conversion.
 - Do not implement collector behavior or invent the host SDK contract until explicitly requested.
