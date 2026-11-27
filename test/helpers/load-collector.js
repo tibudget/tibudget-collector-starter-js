@@ -1,6 +1,5 @@
 import { readFile } from "node:fs/promises";
 import { SourceTextModule, SyntheticModule } from "node:vm";
-import * as linkedom from "linkedom";
 
 /**
  * Registers execution-bound SDK exports as the host does, without changing global bindings.
@@ -13,7 +12,7 @@ export async function loadCollector(runtime) {
   await collector.link(specifier => {
     const exports = specifier === "tibu"
       ? { ...runtime.errors, ...runtime.utilities, SDK_VERSION: runtime.SDK_VERSION }
-      : specifier === "linkedom" ? linkedom : null;
+      : null;
     if (!exports) {
       throw new Error(`Unexpected collector import: ${specifier}`);
     }

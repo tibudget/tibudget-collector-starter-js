@@ -9,7 +9,7 @@ This project provides collector metadata, configuration fields, message resource
 - Node.js 22 or newer and npm.
 - The `zip` command for collector packaging.
 
-Node.js is a development tool here. The collector runs in Tibu's JavaScript engine. Development dependencies supply the shared SDK and LinkeDOM for local tests; Android supplies the `tibu` and `linkedom` modules at runtime.
+Node.js is a development tool here. The collector runs in Tibu's JavaScript engine. The SDK development dependency includes LinkeDOM for local tests; Android supplies the `tibu` module, including DOM parsing, at runtime.
 
 ## Getting started
 
@@ -61,24 +61,15 @@ The manifest's `default_locale` is `en`. The source Java starter currently provi
 
 ## Shared SDK import
 
-Keep `tibudget-collector-sdk` next to this project:
-
-```text
-tibu/
-  tibudget-collector-sdk/
-  tibudget-collector-starter-js/
-```
-
-The npm development dependency `"tibu": "file:../tibudget-collector-sdk"` installs the
-local SDK under the module name already used by collectors:
+The npm development dependency `"tibu": "npm:@tibudget/collector-sdk@0.1.0"` installs
+the published SDK under the module name used by collectors. No sibling SDK checkout is required:
 
 ```javascript
 import { AccessDeny, CollectError, CollectorUtils } from "tibu";
 ```
 
-This local alias requires no npm publication. At runtime Android registers `tibu` itself,
-so the collector ZIP does not include the SDK, Node.js or `node_modules`. LinkeDOM is
-similarly supplied by Android. The shared runtime is used by the local integration test,
+At runtime Android registers `tibu` itself,
+so the collector ZIP does not include the SDK, Node.js or `node_modules`. DOM parsing is provided through the SDK exports. The shared runtime is used by the local integration test,
 while collector code imports error classes and the public `CollectorUtils` class.
 
 `npm test` loads the actual `main.js` with the SDK runtime and fake host services.

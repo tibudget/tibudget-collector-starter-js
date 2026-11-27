@@ -24,8 +24,7 @@
     "docs": "jsdoc -c jsdoc.json"
   },
   "devDependencies": {
-    "tibu": "file:../tibudget-collector-sdk",
-    "linkedom": "0.18.12",
-    "jsdoc": "4.0.4"
+    "jsdoc": "4.0.4",
+    "tibu": "npm:@tibudget/collector-sdk@0.1.0"
   }
 }

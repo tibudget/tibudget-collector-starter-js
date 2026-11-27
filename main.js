@@ -1,5 +1,4 @@
-import { parseHTML } from "linkedom";
-import { AccessDeny, CollectError, TemporaryUnavailable, CollectorUtils } from "tibu";
+import { parseHTML, AccessDeny, CollectError, TemporaryUnavailable, CollectorUtils } from "tibu";
 
 const DOMAIN = "https://tests.tibudget.com";
 const TIME_ZONE = "Europe/Paris";

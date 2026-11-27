@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import StarterCollector from "../main.js";
-import { parseHTML } from "linkedom";
+import { parseHTML } from "tibu";
 
 /**
  * Creates an initialized collector with fixed account identities and configurable host providers.
