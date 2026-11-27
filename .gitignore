@@ -1,7 +1,34 @@
+# Dependencies and generated output
 node_modules/
-dist/
+/dist/
+/docs/api/
 *.tgz
-npm-debug.log*
-.DS_Store
 
-docs/api/
+# Test coverage and caches
+/coverage/
+.nyc_output/
+.cache/
+
+# Local environment files (keep templates versioned)
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Logs
+npm-debug.log*
+*.log
+
+# Editor settings and temporary files
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+
+# Operating system metadata
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
