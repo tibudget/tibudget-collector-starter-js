@@ -2,7 +2,7 @@
 
 ## Scope
 
-This document specifies the contents of a JavaScript collector package: the ZIP layout, required files, their formats, manifest properties, configuration inputs, translations and logo resolution. The manifest schema described here is version 1.
+This document specifies the contents of a JavaScript collector package: the ZIP layout, required files, their formats, manifest properties, configuration inputs, translations and logo resolution.
 
 The manifest describes configuration fields and presentation resources without executing collector code. Runtime APIs and the collector lifecycle are documented separately in [JavaScript collector SDK](javascript-collector-sdk.md). Publication signatures and account/transaction DTO schemas are outside the scope of this document.
 
@@ -49,7 +49,7 @@ The technology is inferred from this package format and its `main.js` entry poin
 
 | Property | Type | Required | Meaning |
 | --- | --- | --- | --- |
-| `manifest_version` | Integer | Yes | MUST be `1` for this specification. |
+| `sdk_version` | String | Yes | Required Tibu host SDK version, for example `"0.1.0"`. |
 | `version` | String | Yes | Nonempty collector release version, identical to the catalog version. This specification does not define version ordering. |
 | `author` | String | Yes | Nonempty package author name. |
 | `default_locale` | String | Yes | Fallback locale, with a corresponding `_locales/<locale>/messages.json` file. |
@@ -60,15 +60,15 @@ Locale identifiers use language tags such as `en`, `fr` or `fr-CA`. Directory na
 
 Host permissions are plain hostnames, for example `tests.tibudget.com`. They MUST NOT contain a scheme, port, path, credentials or wildcard. Names are compared case-insensitively and duplicates are invalid. Permissions match the exact host: `tibudget.com` does not authorize `cdn.tibudget.com`. A network request MUST be rejected if its destination host is absent from the list, including a redirect destination. This does not provide a direct networking API to the script: requests still pass through Tibu's host SDK and domain checks.
 
-A reader MUST reject unsupported manifest versions, unknown properties and invalid field declarations before activating the package. New properties or changed semantics require an updated specification and a compatible reader.
+A reader MUST reject unsupported SDK versions, unknown properties and invalid field declarations before activating the package. New properties or changed semantics require an updated specification and a compatible reader.
 
-The JavaScript reader maps `manifest_version` to the internal `CollectorDefinition.schemaVersion`, infers `CollectorTechnology.JAVASCRIPT`, and maps `host_permissions` to the common allowed-domain metadata. It produces the same common field model as the Java annotation reader. JavaScript packages MUST NOT declare Java classes, annotations or reflection metadata.
+The JavaScript reader checks `sdk_version` for host SDK compatibility, infers `CollectorTechnology.JAVASCRIPT`, and maps `host_permissions` to the common allowed-domain metadata. It produces the same common field model as the Java annotation reader. JavaScript packages MUST NOT declare Java classes, annotations or reflection metadata.
 
 ### Minimal manifest
 
 ```json
 {
-  "manifest_version": 1,
+  "sdk_version": "0.1.0",
   "version": "1.0.0",
   "author": "John Doe",
   "default_locale": "en",
@@ -118,7 +118,7 @@ Names MUST match `[A-Za-z_][A-Za-z0-9_]*`. Renaming a field changes its saved co
 | `type` | Non-null value | Default rules and behavior |
 | --- | --- | --- |
 | `STRING` | JSON string | Empty strings are allowed as initial values. A required active field MUST contain a nonblank value before collection. |
-| `INTEGER` | JSON integer | No fractional values. Version 1 uses the signed 32-bit range, matching the existing Java `int` form field. |
+| `INTEGER` | JSON integer | No fractional values. Uses the signed 32-bit range, matching the existing Java `int` form field. |
 | `BOOLEAN` | JSON boolean | Both `true` and `false` are valid values, including when required. |
 | `DATE` | JSON integer | Unix epoch milliseconds representing an instant. No ISO date strings, JavaScript `Date` objects or relative values such as `today`. |
 | `CHOICE` | JSON string | Value MUST be an identifier from `choices`. No numeric enum ordinals. |
@@ -191,7 +191,7 @@ The installer resolves the fixed `logo.png` file into a host-readable image refe
 
 ```json
 {
-  "manifest_version": 1,
+  "sdk_version": "0.1.0",
   "version": "1.0.0",
   "author": "John Doe",
   "default_locale": "en",
