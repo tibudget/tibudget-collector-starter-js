@@ -13,6 +13,14 @@ Node.js is a development tool here. The collector runs in Tibu's JavaScript engi
 
 ## Getting started
 
+To create a collector for another service, follow [Create a JavaScript collector](docs/create-collector.md).
+The guide covers website inspection, implementation, tests, ZIP packaging and verification in a compatible host.
+Start an AI-assisted adaptation with this prompt:
+
+> Read AGENTS.md and docs/how-to-implement-collector.md, then follow docs/create-collector.md to create a JavaScript collector from this starter for customer account URL `<URL>`, named `<NAME>`, in `<DESTINATION>`. Let me sign in locally, implement the observed flow with the published SDK, replace demo fixtures, and run tests and ZIP packaging. Report verified behavior and remaining limits. Do not publish.
+
+For an existing collector, use [Update collector guides](docs/update-collector.md).
+
 ```sh
 npm ci
 npm run check
@@ -79,7 +87,7 @@ saved expected result. Additional tests cover OTP, CSRF, validation, stop, disab
 chronological ordering and checkpoint resume. These tests make no network requests. During conversion, the complete 78-operation replay was
 also verified in Android's real QuickJS engine, including DTO decoding and native zoned dates.
 
-After changing the sibling SDK, run `npm ci` again to refresh its installed local copy.
+After updating the SDK dependency, commit the updated npm lockfile and use `npm ci` for reproducible installation.
 
 ## Runtime requirements
 
@@ -94,7 +102,8 @@ The integration tests register these bound exports in an isolated Node module us
 `node:vm`, with the experimental VM modules flag. They exercise the existing SDK runtime
 without modifying global utility bindings. Node tests alone do not establish compatibility
 with the target engine; the changes must also be verified in the host's QuickJS engine.
-See the sibling SDK's `docs/collector-agent-guide.md` for collector development rules.
+See [Implementation rules](docs/how-to-implement-collector.md) and the installed SDK's
+`node_modules/tibu/docs/collector-agent-guide.md` for collector development rules.
 
 New accounts and subscriptions receive fresh native UUIDs; previous UUIDs, synchronization
 flags and custom fields are preserved. Dates are local calendar dates until the host converts
