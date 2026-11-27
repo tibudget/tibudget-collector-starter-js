@@ -1,22 +1,23 @@
 import { spawnSync } from "node:child_process";
-import { mkdir, readFile, rm } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectDirectory = fileURLToPath(new URL("../", import.meta.url));
 const packageMetadata = JSON.parse(await readFile(new URL("../package.json", import.meta.url), "utf8"));
-const manifest = JSON.parse(await readFile(new URL("../manifest.json", import.meta.url), "utf8"));
+const manifestPath = new URL("../manifest.json", import.meta.url);
+const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 
-if (manifest.version !== packageMetadata.version) {
-  throw new Error("package.json and manifest.json must declare the same collector version");
-}
+manifest.version = packageMetadata.version;
+manifest.author = packageMetadata.author;
+await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 
 const outputDirectory = resolve(projectDirectory, "dist");
 const archivePath = resolve(outputDirectory, "collector-starter-js.zip");
 await mkdir(outputDirectory, { recursive: true });
 await rm(archivePath, { force: true });
 
-const result = spawnSync("zip", ["-q", "-X", "-r", archivePath, "main.js", "manifest.json", "icon.png", "_locales"], {
+const result = spawnSync("zip", ["-q", "-X", "-r", archivePath, "main.js", "manifest.json", "logo.png", "_locales"], {
   cwd: projectDirectory,
   stdio: "inherit"
 });

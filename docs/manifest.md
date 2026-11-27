@@ -18,7 +18,7 @@ A collector is distributed as a ZIP with the following fixed layout. The ZIP MUS
 collector-amazon.zip
 ├── main.js
 ├── manifest.json
-├── icon.png
+├── logo.png
 └── _locales/
     ├── en/
     │   └── messages.json
@@ -32,7 +32,7 @@ The fixed locations are:
 | --- | --- |
 | `manifest.json` | Package manifest, read before executing any code. |
 | `main.js` | JavaScript entry module. |
-| `icon.png` | Collector logo, in PNG format. |
+| `logo.png` | Collector logo, in PNG format. |
 | `_locales/<locale>/messages.json` | Translations for one locale, using the known Java collector message keys. |
 
 The manifest, entry module, logo and default-locale message file MUST exist. Additional locale directories are optional. JavaScript modules or other supporting files MAY also be included, but do not change these fixed entry locations.
@@ -181,7 +181,7 @@ This is the target behavior for the JavaScript reader, not a claim that the exis
 
 ### Logo
 
-The installer resolves the fixed `icon.png` file into a host-readable image reference used by `CollectorDefinition.logoUrl`. The UI continues to consume the same logo reference abstraction as Java collectors. There is no logo path in the manifest and no localized logo lookup.
+The installer resolves the fixed `logo.png` file into a host-readable image reference used by `CollectorDefinition.logoUrl`. The UI continues to consume the same logo reference abstraction as Java collectors. There is no logo path in the manifest and no localized logo lookup.
 
 ## Complete example
 

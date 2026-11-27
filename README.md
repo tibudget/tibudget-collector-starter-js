@@ -23,12 +23,12 @@ npm run build
 
 `npm run check` checks JavaScript syntax; it is not a collector behavior test or a full manifest validator.
 
-`npm run build` checks syntax and creates `dist/collector-starter-js.zip`. The manifest and npm package versions must match. The ZIP contains these entries directly at its root:
+`npm run build` checks syntax, synchronizes `version` and `author` in the source `manifest.json` from `package.json`, and creates `dist/collector-starter-js.zip` using that updated manifest. The ZIP contains these entries directly at its root:
 
 ```text
 main.js
 manifest.json
-icon.png
+logo.png
 _locales/
   en/
     messages.json
@@ -40,7 +40,7 @@ _locales/
 
 - `main.js`: Java starter conversion using the shared SDK and LinkeDOM, with JSDoc on lifecycle and website methods.
 - `manifest.json`: collector version, author, default locale, host permissions and form declarations.
-- `icon.png`: original Java starter logo.
+- `logo.png`: original Java starter logo.
 - `_locales/en/messages.json`: all original Java message keys and values, converted to a flat JSON object.
 - `docs/manifest.md`: package and input specification, copied from the Android project's specification at creation time.
 - `scripts/build.mjs`: development-only ZIP packaging, never included in the collector archive.
